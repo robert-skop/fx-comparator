@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.robertskop</groupId>
+    <artifactId>fx-comparator</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
+
+    <name>FX Comparator</name>
+    <description>CNB and Frankfurter API FX rates comparator</description>
+
+    <modules>
+        <module>fx-comparator-core</module>
+        <module>fx-comparator-rest-client</module>
+    </modules>
+
+    <properties>
+        <java.version>17</java.version>
+        <kotlin.version>2.1.10</kotlin.version>
+
+        <!--    External    -->
+        <jackson-module-kotlin.version>2.18.2</jackson-module-kotlin.version>
+
+        <!--    OpenAPI docs    -->
+        <swagger-annotations.version>1.6.15</swagger-annotations.version>
+        <springdoc-starter.version>2.8.4</springdoc-starter.version>
+        <openapi4j.version>1.0.7</openapi4j.version>
+
+        <!--    Test    -->
+        <mockito-kotlin.version>5.4.0</mockito-kotlin.version>
+        <mockito-inline.version>5.2.0</mockito-inline.version>
+
+        <!--    Plugin    -->
+        <openapi-generator-maven-plugin.version>7.11.0</openapi-generator-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--    Internal    -->
+            <dependency>
+                <groupId>com.robertskop</groupId>
+                <artifactId>fx-comparator-rest-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--    External    -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-kotlin</artifactId>
+                <version>${jackson-module-kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-reflect</artifactId>
+            </dependency>
+
+            <!--      OpenAPI docs      -->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openapi4j</groupId>
+                <artifactId>openapi-parser</artifactId>
+                <version>${openapi4j.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.openapi4j</groupId>
+                <artifactId>openapi-schema-validator</artifactId>
+                <version>${openapi4j.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!--     Test       -->
+            <dependency>
+                <groupId>org.mockito.kotlin</groupId>
+                <artifactId>mockito-kotlin</artifactId>
+                <version>${mockito-kotlin.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-inline</artifactId>
+                <version>${mockito-inline.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <configuration>
+                    <args>
+                        <arg>-Xjsr305=strict</arg>
+                    </args>
+                    <compilerPlugins>
+                        <plugin>spring</plugin>
+                        <plugin>all-open</plugin>
+                    </compilerPlugins>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-noarg</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--      Code Coverage for SonarQube      -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>prepare-agent-integration</id>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${openapi-generator-maven-plugin.version}</version>
+                    <configuration>
+                        <generatorName>kotlin</generatorName>
+                        <configOptions>
+                            <sourceFolder>src/gen/kotlin/main</sourceFolder>
+                            <dateLibrary>java8</dateLibrary>
+                            <library>jvm-ktor</library>
+                            <serializationLibrary>jackson</serializationLibrary>
+                            <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                            <useJakartaEe>true</useJakartaEe>
+                            <useOptional>false</useOptional>
+                            <openApiNullable>false</openApiNullable>
+                            <serializableModel>true</serializableModel>
+                        </configOptions>
+                        <generateSupportingFiles>false</generateSupportingFiles>
+                        <generateApiDocumentation>false</generateApiDocumentation>
+                        <generateApiTests>false</generateApiTests>
+                        <generateApis>false</generateApis>
+                        <generateModelTests>false</generateModelTests>
+                        <generateModelDocumentation>false</generateModelDocumentation>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
