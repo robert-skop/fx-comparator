@@ -1,5 +1,6 @@
 package com.robertskop.fxcomparator.integration.frankfurter
 
+import com.robertskop.fxcomparator.integration.frankfurter.model.FrankfurterFxResponse
 import org.springframework.stereotype.Component
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.client.RestClient

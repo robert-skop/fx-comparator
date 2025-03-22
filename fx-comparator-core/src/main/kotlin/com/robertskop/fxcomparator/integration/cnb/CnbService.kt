@@ -12,7 +12,8 @@ class CnbService(
 
     fun getLatestExchangeRates(): FxPairs {
         return try {
-            cnbConnector.getLatestExchangeRates()?.let { cnbMapper.mapToFxPairs(it) }
+            cnbConnector.getLatestExchangeRates()
+                ?.let { cnbMapper.mapToFxPairs(it) }
                 ?: throw CnbException("Cannot read response from CNB")
         } catch (e: RestClientResponseException) {
             throw CnbException("Error while getting FX rates from CNB", e)

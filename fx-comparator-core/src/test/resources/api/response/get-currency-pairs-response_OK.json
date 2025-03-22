@@ -1,0 +1,21 @@
+{
+  "validityDate": "2025-03-21",
+  "currencyPairs": [
+    {
+      "baseCurrency": "EUR",
+      "quoteCurrency": "CZK"
+    },
+    {
+      "baseCurrency": "HUF",
+      "quoteCurrency": "CZK"
+    },
+    {
+      "baseCurrency": "USD",
+      "quoteCurrency": "CZK"
+    },
+    {
+      "baseCurrency": "GBP",
+      "quoteCurrency": "CZK"
+    }
+  ]
+}

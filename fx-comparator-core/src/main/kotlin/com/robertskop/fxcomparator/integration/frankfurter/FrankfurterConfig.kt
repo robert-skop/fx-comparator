@@ -27,7 +27,6 @@ class FrankfurterConfig(
         return restClientBuilder
             .clone()
             .uriBuilderFactory(uriBuilderFactory)
-            // TODO mozno pridat default status handler
             .build()
     }
 

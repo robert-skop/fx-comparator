@@ -5,6 +5,7 @@ import com.robertskop.fxcomparator.service.FxService
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
@@ -19,6 +20,7 @@ class FxComparatorController(
         const val API_V1_FX_COMPARATOR = "/api/v1/fx-comparator"
 
         const val CURRENCY_PAIRS_PATH = "/currency-pairs"
+        const val CURRENCY_COMPARISON_PATH = "/currency/{baseCurrency}/comparison"
     }
 
     @GetMapping(
@@ -28,5 +30,11 @@ class FxComparatorController(
     @ResponseStatus(HttpStatus.OK)
     fun getCurrencyPairs() = fxService.getCurrencyPairs()
 
+    @GetMapping(
+        path = [CURRENCY_COMPARISON_PATH],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    @ResponseStatus(HttpStatus.OK)
+    fun getFxComparison(@PathVariable baseCurrency: String) = fxService.getFxComparisonToCzk(baseCurrency)
 
 }

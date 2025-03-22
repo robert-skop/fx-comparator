@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "error": "CURRENCY_NOT_FOUND",
+      "scope": "{pathParams}.baseCurrency",
+      "message": "Mocked exception"
+    }
+  ]
+}

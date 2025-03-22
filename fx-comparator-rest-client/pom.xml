@@ -31,25 +31,26 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>mqtt-topics</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/fx-comparator_v1.yml</inputSpec>
-                            <output>${project.build.directory}/generated-sources/fx-model</output>
-                            <modelPackage>${project.groupId}.rest.model</modelPackage>
-                            <modelNamePrefix>REST</modelNamePrefix>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--      FIXME      -->
+<!--            <plugin>-->
+<!--                <groupId>org.openapitools</groupId>-->
+<!--                <artifactId>openapi-generator-maven-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>mqtt-topics</id>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <inputSpec>${project.basedir}/src/main/resources/fx-comparator_v1.yml</inputSpec>-->
+<!--                            <output>${project.build.directory}/generated-sources/fx-model</output>-->
+<!--                            <modelPackage>${project.groupId}.rest.model</modelPackage>-->
+<!--                            <modelNamePrefix>REST</modelNamePrefix>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>

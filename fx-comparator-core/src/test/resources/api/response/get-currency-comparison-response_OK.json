@@ -1,0 +1,17 @@
+{
+  "validityDate": "2025-03-21",
+  "baseCurrency": "GBP",
+  "quoteCurrency": "CZK",
+  "baseCurrencyAmount": 1,
+  "fxRates": [
+    {
+      "provider": "CNB",
+      "fxRate": 29.815
+    },
+    {
+      "provider": "FRANKFURTER",
+      "fxRate": 29.823
+    }
+  ],
+  "fxRatesDifference": 0.008
+}

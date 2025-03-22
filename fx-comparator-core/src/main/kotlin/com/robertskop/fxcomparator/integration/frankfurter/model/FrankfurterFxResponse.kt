@@ -1,4 +1,4 @@
-package com.robertskop.fxcomparator.integration.frankfurter
+package com.robertskop.fxcomparator.integration.frankfurter.model
 
 import java.math.BigDecimal
 import java.time.LocalDate

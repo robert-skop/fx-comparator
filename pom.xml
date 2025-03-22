@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.2</version>
+        <version>3.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -29,6 +29,7 @@
 
         <!--    External    -->
         <jackson-module-kotlin.version>2.18.2</jackson-module-kotlin.version>
+        <commons-io.version>2.18.0</commons-io.version>
 
         <!--    OpenAPI docs    -->
         <swagger-annotations.version>1.6.15</swagger-annotations.version>
@@ -70,6 +71,15 @@
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-reflect</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-coroutines-core</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
 
             <!--      OpenAPI docs      -->

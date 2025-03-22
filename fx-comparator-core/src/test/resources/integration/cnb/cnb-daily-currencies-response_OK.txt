@@ -1,0 +1,6 @@
+21.03.2025 #57
+země|měna|množství|kód|kurz
+EMU|euro|1|EUR|24,980
+Maďarsko|forint|100|HUF|6,261
+USA|dolar|1|USD|23,061
+Velká Británie|libra|1|GBP|29,815
