@@ -24,6 +24,10 @@ spring:
             fail-on-unknown-properties: false
             adjust-dates-to-context-time-zone: true
 
+auth:
+    username: ${USERNAME:admin}
+    password: ${PASSWORD:password}
+
 integration:
     cnb:
         uri: https://www.cnb.cz/
