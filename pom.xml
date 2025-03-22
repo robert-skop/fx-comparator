@@ -20,7 +20,6 @@
 
     <modules>
         <module>fx-comparator-core</module>
-        <module>fx-comparator-rest-client</module>
     </modules>
 
     <properties>
@@ -42,6 +41,7 @@
 
         <!--    Plugin    -->
         <openapi-generator-maven-plugin.version>7.11.0</openapi-generator-maven-plugin.version>
+        <springdoc-openapi-maven-plugin.version>1.4</springdoc-openapi-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
     </properties>
 
@@ -55,13 +55,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--    Internal    -->
-            <dependency>
-                <groupId>com.robertskop</groupId>
-                <artifactId>fx-comparator-rest-client</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!--    External    -->
             <dependency>
                 <groupId>com.fasterxml.jackson.module</groupId>
@@ -91,6 +84,11 @@
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
                 <version>${springdoc-starter.version}</version>
             </dependency>
             <dependency>
@@ -196,29 +194,9 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.openapitools</groupId>
-                    <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <version>${openapi-generator-maven-plugin.version}</version>
-                    <configuration>
-                        <generatorName>kotlin</generatorName>
-                        <configOptions>
-                            <sourceFolder>src/gen/kotlin/main</sourceFolder>
-                            <dateLibrary>java8</dateLibrary>
-                            <library>jvm-ktor</library>
-                            <serializationLibrary>jackson</serializationLibrary>
-                            <hideGenerationTimestamp>true</hideGenerationTimestamp>
-                            <useJakartaEe>true</useJakartaEe>
-                            <useOptional>false</useOptional>
-                            <openApiNullable>false</openApiNullable>
-                            <serializableModel>true</serializableModel>
-                        </configOptions>
-                        <generateSupportingFiles>false</generateSupportingFiles>
-                        <generateApiDocumentation>false</generateApiDocumentation>
-                        <generateApiTests>false</generateApiTests>
-                        <generateApis>false</generateApis>
-                        <generateModelTests>false</generateModelTests>
-                        <generateModelDocumentation>false</generateModelDocumentation>
-                    </configuration>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-maven-plugin</artifactId>
+                    <version>${springdoc-openapi-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

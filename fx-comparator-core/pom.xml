@@ -32,12 +32,6 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!--    Internal    -->
-        <dependency>
-            <groupId>com.robertskop</groupId>
-            <artifactId>fx-comparator-rest-client</artifactId>
-        </dependency>
-
         <!--    External    -->
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
@@ -64,6 +58,16 @@
             <artifactId>mockito-inline</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--    Open API docs    -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -72,6 +76,24 @@
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
 
         <plugins>
+            <plugin>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-openapi-doc</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiDocsUrl>http://localhost:8080/v3/api-docs</apiDocsUrl>
+                            <outputFileName>openapi.yaml</outputFileName>
+                            <outputDir>${project.basedir}/target</outputDir>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

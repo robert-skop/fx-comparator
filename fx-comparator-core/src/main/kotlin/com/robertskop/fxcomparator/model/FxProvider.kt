@@ -5,7 +5,7 @@ enum class FxProvider(
 ) {
 
     CNB("CNB"),
-    FRANKFURTER("FRANKFURTER"),
+    FRANKFURTER("Frankfurter"),
     ;
 
     fun getApiValue() = apiValue
