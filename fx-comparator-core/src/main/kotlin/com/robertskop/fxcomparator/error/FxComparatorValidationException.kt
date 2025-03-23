@@ -6,5 +6,4 @@ class FxComparatorValidationException(
     constructor(message: String, cause: Throwable?) : this(message) {
         initCause(cause)
     }
-    // TODO pridat error code
 }

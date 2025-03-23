@@ -7,7 +7,6 @@ import com.robertskop.fxcomparator.integration.cnb.CnbService
 import com.robertskop.fxcomparator.integration.frankfurter.FrankfurterService
 import com.robertskop.fxcomparator.mapper.FxMapper
 import com.robertskop.fxcomparator.model.Currency
-import com.robertskop.fxcomparator.util.DEFAULT_BASE_CURRENCY_AMOUNT
 import org.springframework.stereotype.Service
 
 @Service
@@ -16,6 +15,10 @@ class FxService(
     private val frankfurterService: FrankfurterService,
     private val fxMapper: FxMapper,
 ) {
+
+    companion object {
+        private const val DEFAULT_BASE_CURRENCY_AMOUNT = 1
+    }
 
     fun getCurrencyPairs(): CurrencyPairsResponse {
         val cnbFxPairs = cnbService.getLatestExchangeRates()
@@ -55,10 +58,6 @@ class FxService(
         )
     }
 
-    // TODO Oauth
-    // TODO OpenAPI - popisat, ze quote currency moze byt len CZK
-    // TODO OpenAPI - generovat z dokumentacie
-    // TODO OpenAPI - vystavit swagger
     // TODO docker - povolit port pre swagger, actuator atd
     // TODO coroutines
 }

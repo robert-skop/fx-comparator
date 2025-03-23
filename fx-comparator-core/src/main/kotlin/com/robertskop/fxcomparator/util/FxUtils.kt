@@ -2,8 +2,6 @@ package com.robertskop.fxcomparator.util
 
 import java.math.BigDecimal
 
-const val DEFAULT_BASE_CURRENCY_AMOUNT = 1
-
 object FxUtils {
 
     /**
