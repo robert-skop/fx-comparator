@@ -29,6 +29,7 @@
         <!--    External    -->
         <jackson-module-kotlin.version>2.18.2</jackson-module-kotlin.version>
         <commons-io.version>2.18.0</commons-io.version>
+        <kotlinx-coroutines-reactor.version>1.10.1</kotlinx-coroutines-reactor.version>
 
         <!--    OpenAPI docs    -->
         <swagger-annotations.version>1.6.15</swagger-annotations.version>
@@ -38,6 +39,8 @@
         <!--    Test    -->
         <mockito-kotlin.version>5.4.0</mockito-kotlin.version>
         <mockito-inline.version>5.2.0</mockito-inline.version>
+        <springmockk.version>4.0.2</springmockk.version>
+        <kotlinx-coroutines-test.version>1.10.1</kotlinx-coroutines-test.version>
 
         <!--    Plugin    -->
         <openapi-generator-maven-plugin.version>7.11.0</openapi-generator-maven-plugin.version>
@@ -68,6 +71,11 @@
             <dependency>
                 <groupId>org.jetbrains.kotlinx</groupId>
                 <artifactId>kotlinx-coroutines-core</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-coroutines-reactor</artifactId>
+                <version>${kotlinx-coroutines-reactor.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
@@ -115,6 +123,18 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-inline</artifactId>
                 <version>${mockito-inline.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.ninja-squad</groupId>
+                <artifactId>springmockk</artifactId>
+                <version>${springmockk.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-coroutines-test</artifactId>
+                <version>${kotlinx-coroutines-test.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

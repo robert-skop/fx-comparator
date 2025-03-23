@@ -7,6 +7,9 @@ import com.robertskop.fxcomparator.integration.cnb.CnbService
 import com.robertskop.fxcomparator.integration.frankfurter.FrankfurterService
 import com.robertskop.fxcomparator.mapper.FxMapper
 import com.robertskop.fxcomparator.model.Currency
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import org.springframework.stereotype.Service
 
 @Service
@@ -20,25 +23,29 @@ class FxService(
         private const val DEFAULT_BASE_CURRENCY_AMOUNT = 1
     }
 
-    fun getCurrencyPairs(): CurrencyPairsResponse {
+    suspend fun getCurrencyPairs(): CurrencyPairsResponse = coroutineScope {
         val cnbFxPairs = cnbService.getLatestExchangeRates()
-        val frankfurterFxPairs = cnbFxPairs.fxPairs.mapNotNull {
-            // TODO pouzit coroutines
-            frankfurterService.getFxForDateAndCurrencies(
-                date = cnbFxPairs.validityDate,
-                baseCurrency = it.baseCurrency,
-                quoteCurrency = Currency.CZECH_CROWN.getFrankfurterValue(),
-                baseCurrencyAmount = DEFAULT_BASE_CURRENCY_AMOUNT
-            )
+
+        val deferredFrankfurterFxPairs = cnbFxPairs.fxPairs.map { fxPair ->
+            async {
+                frankfurterService.getFxForDateAndCurrencies(
+                    date = cnbFxPairs.validityDate,
+                    baseCurrency = fxPair.baseCurrency,
+                    quoteCurrency = Currency.CZECH_CROWN.getFrankfurterValue(),
+                    baseCurrencyAmount = DEFAULT_BASE_CURRENCY_AMOUNT
+                )
+            }
         }
 
-        return fxMapper.mapToCurrencyPairsResponse(
+        val frankfurterFxPairs = deferredFrankfurterFxPairs.awaitAll().filterNotNull()
+
+        fxMapper.mapToCurrencyPairsResponse(
             validityDate = cnbFxPairs.validityDate,
             fxPairs = cnbFxPairs.fxPairs.union(frankfurterFxPairs).toList()
         )
     }
 
-    fun getFxComparisonToCzk(baseCurrency: String): FxComparisonResponse {
+    suspend fun getFxComparisonToCzk(baseCurrency: String): FxComparisonResponse = coroutineScope {
         val cnbFxPairs = cnbService.getLatestExchangeRates()
         val cnbRequiredFxPair = cnbFxPairs.fxPairs
             .firstOrNull { baseCurrency == it.baseCurrency }
@@ -51,13 +58,10 @@ class FxService(
             baseCurrencyAmount = cnbRequiredFxPair.amount
         ) ?: throw FxComparatorValidationException("Currency $baseCurrency is not supported.")
 
-        return fxMapper.mapToFxComparisonResponse(
+        fxMapper.mapToFxComparisonResponse(
             validityDate = cnbFxPairs.validityDate,
             firstFxPair = cnbRequiredFxPair,
             secondFxPair = frankfurterRequiredFxPair,
         )
     }
-
-    // TODO docker - povolit port pre swagger, actuator atd
-    // TODO coroutines
 }

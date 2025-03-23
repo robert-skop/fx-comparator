@@ -26,7 +26,7 @@ class SecurityConfig(
         http
             .authorizeHttpRequests { requests ->
                 requests
-                    .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/actuator/**", "/swagger-ui/**").permitAll()
                     .anyRequest().authenticated()
             }
             .httpBasic(Customizer.withDefaults())
@@ -35,10 +35,10 @@ class SecurityConfig(
     }
 
     @Bean
-    fun userDetailsService(): UserDetailsService {
+    fun userDetailsService(passwordEncoder: PasswordEncoder): UserDetailsService {
         val user = User
             .withUsername(username)
-            .password(passwordEncoder().encode(password))
+            .password(passwordEncoder.encode(password))
             .build()
         return InMemoryUserDetailsManager(user)
     }
