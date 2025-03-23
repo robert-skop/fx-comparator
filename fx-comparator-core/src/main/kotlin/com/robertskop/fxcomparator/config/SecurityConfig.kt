@@ -26,7 +26,11 @@ class SecurityConfig(
         http
             .authorizeHttpRequests { requests ->
                 requests
-                    .requestMatchers(HttpMethod.GET, "/actuator/**", "/swagger-ui/**").permitAll()
+                    .requestMatchers(HttpMethod.GET,
+                        "/actuator/**",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                    ).permitAll()
                     .anyRequest().authenticated()
             }
             .httpBasic(Customizer.withDefaults())
