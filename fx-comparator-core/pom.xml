@@ -106,7 +106,7 @@
                 <executions>
                     <execution>
                         <id>generate-openapi-doc</id>
-                        <phase>compile</phase>
+                        <phase>none</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
