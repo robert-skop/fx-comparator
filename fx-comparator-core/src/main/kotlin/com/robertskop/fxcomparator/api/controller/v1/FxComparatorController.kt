@@ -37,7 +37,7 @@ class FxComparatorController(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     @ResponseStatus(HttpStatus.OK)
-    fun getCurrencyPairs() = fxService.getCurrencyPairs()
+    suspend fun getCurrencyPairs() = fxService.getCurrencyPairs()
 
     @Operation(
         summary = "Returns exchange rates comparison for currency pair",
@@ -63,6 +63,6 @@ class FxComparatorController(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     @ResponseStatus(HttpStatus.OK)
-    fun getFxComparison(@PathVariable baseCurrency: String) = fxService.getFxComparisonToCzk(baseCurrency)
+    suspend fun getFxComparison(@PathVariable baseCurrency: String) = fxService.getFxComparisonToCzk(baseCurrency)
 
 }

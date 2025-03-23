@@ -58,16 +58,7 @@ class FxMapperTest {
 
         assertAll(
             { assertNotNull(result) },
-            {
-                assertEquals(expectedResult, result)
-//                assertThat(result)
-//                    .usingRecursiveComparison()
-//                    .withComparatorForFields(
-//                        Comparator<BigDecimal> { a, b -> (a).compareTo(b) },
-//                        "fxRate", "fxRatesDifference"
-//                    )
-//                    .isEqualTo(expecterResult)
-            }
+            { assertEquals(expectedResult, result) }
         )
     }
 }

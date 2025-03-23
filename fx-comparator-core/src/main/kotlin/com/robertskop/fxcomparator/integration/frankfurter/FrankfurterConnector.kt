@@ -1,14 +1,15 @@
 package com.robertskop.fxcomparator.integration.frankfurter
 
 import com.robertskop.fxcomparator.integration.frankfurter.model.FrankfurterFxResponse
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Component
 import org.springframework.util.LinkedMultiValueMap
-import org.springframework.web.client.RestClient
+import org.springframework.web.reactive.function.client.WebClient
 import java.time.LocalDate
 
 @Component
 class FrankfurterConnector(
-    private val frankfurterRestClient: RestClient,
+    private val frankfurterWebClient: WebClient,
 ) {
 
     companion object {
@@ -16,11 +17,11 @@ class FrankfurterConnector(
         private const val QUERY_PARAM_SYMBOL = "symbol"
     }
 
-    fun getFxForDateAndCurrencies(
+    suspend fun getFxForDateAndCurrencies(
         date: LocalDate,
         baseCurrency: String,
         quoteCurrency: String,
-    ) = frankfurterRestClient.get()
+    ) = frankfurterWebClient.get()
         .uri {
             it.pathSegment(date.toString())
                 .queryParams(
@@ -32,6 +33,7 @@ class FrankfurterConnector(
                 .build()
         }
         .retrieve()
-        .body(FrankfurterFxResponse::class.java)
+        .bodyToMono(FrankfurterFxResponse::class.java)
+        .awaitSingleOrNull()
 
 }
